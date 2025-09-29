@@ -1,4 +1,4 @@
-package ru.vsu.cs.oop.pronin_s_v.task1;
+package ru.vsu.cs.oop.pronin_s_v.task1.storage;
 
 import java.util.HashMap;
 import java.util.Objects;
