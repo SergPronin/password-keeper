@@ -2,16 +2,14 @@ package ru.vsu.cs.oop.pronin_s_v.task1;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+public final class Crypto {
+    private Crypto() {}
 
-public class Crypto {
-
-    String hashPassword(String plainPassword){
+    public static String hashMaster(String plainPassword) {
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
     }
 
-    boolean verifyPassword(String plainPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainPassword, hashedPassword);
+    public static boolean verifyMaster(String plainPassword, String storedHash) {
+        return BCrypt.checkpw(plainPassword, storedHash);
     }
-
-
 }
