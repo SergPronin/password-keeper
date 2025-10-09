@@ -25,7 +25,7 @@ class PasswordManagerTest {
         pm.addOrUpdate("vk", "alex", "S3cret!");
         var found = pm.getByServiceLogin("vk", "alex");
         assertTrue(found.isPresent());
-        assertEquals("S3cret!", found.get().getSecret());
+        assertEquals("S3cret!", found.get().getPassword());
     }
 
     @Test

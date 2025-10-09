@@ -19,7 +19,9 @@ import ru.vsu.cs.oop.pronin_s_v.task1.generator.PasswordGenerator;
 import ru.vsu.cs.oop.pronin_s_v.task1.manager.PasswordManager;
 import ru.vsu.cs.oop.pronin_s_v.task1.model.Password;
 import ru.vsu.cs.oop.pronin_s_v.task1.storage.InMemoryPasswordRepository;
+import ru.vsu.cs.oop.pronin_s_v.task1.storage.JsonPasswordRepository;
 
+import java.nio.file.Path;
 import java.util.Comparator;
 
 public class FxApp extends Application {
@@ -33,8 +35,11 @@ public class FxApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        // core
-        repo = new InMemoryPasswordRepository();
+//        repo = new InMemoryPasswordRepository();
+        Path vault = Path.of("data", "vault.json"); // создастся внутри проекта
+        repo = new JsonPasswordRepository(vault);  // <-- теперь будет сохранять в файл
+
+
         generator = new PasswordGenerator();
         manager = new PasswordManager(repo, generator);
 
@@ -52,7 +57,7 @@ public class FxApp extends Application {
 
         TableColumn<Password, String> colMasked = new TableColumn<>("Secret (masked)");
         colMasked.setCellValueFactory(cell -> javafx.beans.binding.Bindings.createStringBinding(
-                () -> mask(cell.getValue().getSecret())
+                () -> mask(cell.getValue().getPassword())
         ));
 
         table.getColumns().addAll(colService, colLogin, colMasked);
@@ -79,7 +84,7 @@ public class FxApp extends Application {
         BorderPane root = new BorderPane(table, null, null, actions, null);
         root.setPadding(new Insets(10));
 
-        stage.setTitle("Password Keeper (JavaFX, in-memory)");
+        stage.setTitle("Password Keeper");
         stage.setScene(new Scene(root, 720, 420));
         stage.show();
     }
@@ -164,7 +169,7 @@ public class FxApp extends Application {
         manager.getByServiceLogin(sel.getService(), sel.getLogin()).ifPresent(p -> {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText(p.getService() + " / " + p.getLogin());
-            a.setContentText("Password: " + p.getSecret());
+            a.setContentText("Password: " + p.getPassword());
             a.showAndWait();
         });
     }
@@ -173,7 +178,7 @@ public class FxApp extends Application {
         Password sel = table.getSelectionModel().getSelectedItem();
         if (sel == null) return;
         ClipboardContent cc = new ClipboardContent();
-        cc.putString(sel.getSecret());
+        cc.putString(sel.getPassword());
         Clipboard.getSystemClipboard().setContent(cc);
         toast("Copied to clipboard");
     }

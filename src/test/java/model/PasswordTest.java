@@ -13,7 +13,7 @@ class PasswordTest {
         assertEquals("vk:alex", p.getId());
         assertEquals("vk", p.getService());
         assertEquals("alex", p.getLogin());
-        assertEquals("secret123", p.getSecret());
+        assertEquals("secret123", p.getPassword());
     }
 
     @Test

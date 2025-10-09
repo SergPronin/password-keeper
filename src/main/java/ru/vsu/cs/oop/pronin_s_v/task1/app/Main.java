@@ -44,7 +44,7 @@ public class Main {
                         System.out.print("login: ");   String login = sc.next();
                         pm.getByServiceLogin(service, login).ifPresentOrElse(
                                 (Password x) -> System.out.println(
-                                        x.getService() + " / " + x.getLogin() + " = " + x.getSecret()
+                                        x.getService() + " / " + x.getLogin() + " = " + x.getPassword()
                                 ),
                                 () -> System.out.println("Not found")
                         );

@@ -6,22 +6,22 @@ public final class Password {
     private final String id;
     private final String service;
     private String login;
-    private String secret;
+    private String password;
 
-    public Password(String id, String service, String login, String secret) {
+    public Password(String id, String service, String login, String password) {
         this.id = requireNonBlank(id, "id");
         this.service = requireNonBlank(service, "service");
         this.login = requireNonBlank(login, "login");
-        this.secret = requireNonBlank(secret, "secret");
+        this.password = requireNonBlank(password, "password");
     }
 
     public String getId() { return id; }
     public String getService() { return service; }
     public String getLogin() { return login; }
-    public String getSecret() { return secret; }
+    public String getPassword() { return password; }
 
     public void setLogin(String login)   { this.login = requireNonBlank(login, "login"); }
-    public void setSecret(String secret) { this.secret = requireNonBlank(secret, "secret"); }
+    public void setPassword(String password) { this.password = requireNonBlank(password, "secret"); }
 
     private static String requireNonBlank(String s, String field) {
         Objects.requireNonNull(s, field + " cannot be null");
@@ -35,7 +35,7 @@ public final class Password {
     }
 
     private String masked() {
-        return "*".repeat(Math.min(secret.length(), 6)) + (secret.length() > 6 ? "…" : "");
+        return "*".repeat(Math.min(password.length(), 6)) + (password.length() > 6 ? "…" : "");
     }
 
     @Override
