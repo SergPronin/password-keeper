@@ -15,17 +15,33 @@ public final class Password {
         this.password = requireNonBlank(password, "password");
     }
 
-    public String getId() { return id; }
-    public String getService() { return service; }
-    public String getLogin() { return login; }
-    public String getPassword() { return password; }
+    public String getId() {
+        return id;
+    }
 
-    public void setLogin(String login)   { this.login = requireNonBlank(login, "login"); }
-    public void setPassword(String password) { this.password = requireNonBlank(password, "secret"); }
+    public String getService() {
+        return service;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setLogin(String login) {
+        this.login = requireNonBlank(login, "login");
+    }
+
+    public void setPassword(String password) {
+        this.password = requireNonBlank(password, "secret");
+    }
 
     private static String requireNonBlank(String s, String field) {
         Objects.requireNonNull(s, field + " cannot be null");
-        if (s.trim().isEmpty()) throw new IllegalArgumentException(field + " cannot be blank");
+        if ( s.trim().isEmpty() ) throw new IllegalArgumentException(field + " cannot be blank");
         return s;
     }
 
@@ -40,8 +56,8 @@ public final class Password {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Password that)) return false;
+        if ( this == o ) return true;
+        if ( !(o instanceof Password that) ) return false;
         return id.equals(that.id);
     }
 

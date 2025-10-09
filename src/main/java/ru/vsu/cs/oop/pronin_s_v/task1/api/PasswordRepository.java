@@ -19,6 +19,7 @@ public interface PasswordRepository {
 
     /**
      * Получить запись по id.
+     *
      * @return Optional.empty(), если записи нет.
      */
     Optional<Password> get(String id);
@@ -31,6 +32,7 @@ public interface PasswordRepository {
 
     /**
      * Удалить запись по id.
+     *
      * @return true — если запись существовала и была удалена.
      */
     boolean remove(String id);

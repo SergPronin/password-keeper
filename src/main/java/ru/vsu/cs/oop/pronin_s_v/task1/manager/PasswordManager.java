@@ -22,23 +22,27 @@ public class PasswordManager {
     }
 
     private String buildId(String service, String login) {
-        if (service == null || service.isBlank()) {
+        if ( service == null || service.isBlank() ) {
             throw new IllegalArgumentException("service cannot be blank");
         }
-        if (login == null || login.isBlank()) {
+        if ( login == null || login.isBlank() ) {
             throw new IllegalArgumentException("login cannot be blank");
         }
         return service + ":" + login;
     }
 
 
-    /** Добавить новую или обновить существующую запись. */
+    /**
+     * Добавить новую или обновить существующую запись.
+     */
     public void addOrUpdate(String service, String login, String secret) {
         String id = buildId(service, login);
         repository.upsert(new Password(id, service, login, secret));
     }
 
-    /** Сгенерировать пароль, сохранить запись и вернуть сгенерированный секрет. */
+    /**
+     * Сгенерировать пароль, сохранить запись и вернуть сгенерированный секрет.
+     */
     public String generateAndSave(String service, String login, int length) {
         String pwd = generator.generate(length);
         String id = buildId(service, login);

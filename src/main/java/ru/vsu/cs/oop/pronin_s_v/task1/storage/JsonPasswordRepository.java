@@ -37,7 +37,7 @@ public class JsonPasswordRepository implements PasswordRepository {
     private void ensureParentDir() {
         try {
             Path parent = file.toAbsolutePath().getParent();
-            if (parent != null && !Files.exists(parent)) {
+            if ( parent != null && !Files.exists(parent) ) {
                 Files.createDirectories(parent);
             }
         } catch (IOException e) {
@@ -65,7 +65,7 @@ public class JsonPasswordRepository implements PasswordRepository {
     @Override
     public boolean remove(String id) {
         boolean removed = map.remove(Objects.requireNonNull(id, "id")) != null;
-        if (removed) saveUnsafe();
+        if ( removed ) saveUnsafe();
         return removed;
     }
 
@@ -76,11 +76,12 @@ public class JsonPasswordRepository implements PasswordRepository {
     }
 
     private void load() {
-        if (!Files.exists(file)) return;
+        if ( !Files.exists(file) ) return;
         try {
             byte[] json = Files.readAllBytes(file);
-            if (json.length == 0) return; // пустой файл — просто пустое хранилище
-            List<Password> list = mapper.readValue(json, new TypeReference<List<Password>>(){});
+            if ( json.length == 0 ) return; // пустой файл — просто пустое хранилище
+            List<Password> list = mapper.readValue(json, new TypeReference<List<Password>>() {
+            });
             map.clear();
             for (Password p : list) map.put(p.getId(), p);
         } catch (IOException e) {

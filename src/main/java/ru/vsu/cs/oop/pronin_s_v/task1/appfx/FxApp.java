@@ -111,7 +111,7 @@ public class FxApp extends Application {
         dlg.getDialogPane().setContent(grid);
 
         dlg.setResultConverter(bt -> {
-            if (bt == okBtn) {
+            if ( bt == okBtn ) {
                 try {
                     manager.addOrUpdate(tfService.getText(), tfLogin.getText(), pfSecret.getText());
                     return manager.getByServiceLogin(tfService.getText(), tfLogin.getText()).orElse(null);
@@ -144,7 +144,7 @@ public class FxApp extends Application {
         dlg.getDialogPane().setContent(grid);
 
         dlg.setResultConverter(bt -> {
-            if (bt == okBtn) {
+            if ( bt == okBtn ) {
                 try {
                     return manager.generateAndSave(tfService.getText(), tfLogin.getText(), spLen.getValue());
                 } catch (IllegalArgumentException ex) {
@@ -165,7 +165,7 @@ public class FxApp extends Application {
 
     private void onShow() {
         Password sel = table.getSelectionModel().getSelectedItem();
-        if (sel == null) return;
+        if ( sel == null ) return;
         manager.getByServiceLogin(sel.getService(), sel.getLogin()).ifPresent(p -> {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             a.setHeaderText(p.getService() + " / " + p.getLogin());
@@ -176,7 +176,7 @@ public class FxApp extends Application {
 
     private void onCopy() {
         Password sel = table.getSelectionModel().getSelectedItem();
-        if (sel == null) return;
+        if ( sel == null ) return;
         ClipboardContent cc = new ClipboardContent();
         cc.putString(sel.getPassword());
         Clipboard.getSystemClipboard().setContent(cc);
@@ -185,12 +185,12 @@ public class FxApp extends Application {
 
     private void onDelete() {
         Password sel = table.getSelectionModel().getSelectedItem();
-        if (sel == null) return;
+        if ( sel == null ) return;
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
                 "Delete " + sel.getService() + " / " + sel.getLogin() + "?", ButtonType.OK, ButtonType.CANCEL);
         confirm.setHeaderText("Confirm deletion");
         confirm.showAndWait().ifPresent(bt -> {
-            if (bt == ButtonType.OK) {
+            if ( bt == ButtonType.OK ) {
                 manager.removeByServiceLogin(sel.getService(), sel.getLogin());
                 refresh();
             }
@@ -198,7 +198,7 @@ public class FxApp extends Application {
     }
 
     private static String mask(String s) {
-        if (s == null || s.isBlank()) return "";
+        if ( s == null || s.isBlank() ) return "";
         return "*".repeat(Math.min(s.length(), 6)) + (s.length() > 6 ? "…" : "");
     }
 
