@@ -5,12 +5,15 @@ import ru.vsu.cs.oop.pronin_s_v.task1.generator.PasswordGenerator;
 import ru.vsu.cs.oop.pronin_s_v.task1.manager.PasswordManager;
 import ru.vsu.cs.oop.pronin_s_v.task1.model.Password;
 import ru.vsu.cs.oop.pronin_s_v.task1.storage.InMemoryPasswordRepository;
+import ru.vsu.cs.oop.pronin_s_v.task1.storage.JsonPasswordRepository;
 
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        PasswordRepository repo = new InMemoryPasswordRepository();
+        Path vault = Path.of("data", "vault.json"); // создастся внутри проекта
+        PasswordRepository repo = new JsonPasswordRepository(vault);
         PasswordGenerator gen = new PasswordGenerator();
         PasswordManager pm = new PasswordManager(repo, gen);
 
