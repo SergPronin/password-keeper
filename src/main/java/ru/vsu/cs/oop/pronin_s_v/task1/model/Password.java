@@ -36,7 +36,7 @@ public final class Password {
     }
 
     public void setPassword(String password) {
-        this.password = requireNonBlank(password, "secret");
+        this.password = requireNonBlank(password, "password");
     }
 
     private static String requireNonBlank(String s, String field) {
